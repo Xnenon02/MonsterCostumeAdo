@@ -52,6 +52,7 @@ internal static class Program
                     break;
             }
         }
+    }
 
     private static void EnsureDatabase()
     {
