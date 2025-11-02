@@ -29,28 +29,27 @@ internal static class Program
             Console.WriteLine("1. Visa kostymer i lager");
             Console.WriteLine("2. Visa gjorda försäljningar");
             Console.WriteLine("3. Registrera ny försäljning");
+            Console.WriteLine("4. Intäktsöversikt per kostym");
+            Console.WriteLine("5. Filtrera försäljningar efter datum");
+            Console.WriteLine("6. Lagerlarm (lågt saldo)");
             Console.WriteLine("0. Avsluta");
             Console.Write("Val: ");
 
             var choice = Console.ReadLine();
             switch (choice)
             {
-                case "1":
-                    DisplayService.ShowCostumes();
-                    break;
-                case "2":
-                    DisplayService.ShowSales();
-                    break;
-                case "3":
-                    RegisterSale(); // still ADO.NET for now (will be replaced in Part 4)
-                    break;
+                case "1": DisplayService.ShowCostumes(); break;
+                case "2": DisplayService.ShowSales(); break;
+                case "3": SaleService.RegisterSale(); break;
+                case "4": ReportService.ShowRevenuePerCostume(); break;
+                case "5": ReportService.FilterSalesByDate(); break;
+                case "6": ReportService.ShowLowStockAlert(); break;
                 case "0":
                     Console.WriteLine("Hej då och lycka till på Allhelgona!");
                     return;
                 default:
                     Console.WriteLine("Ogiltigt val, försök igen.");
                     break;
-
             }
         }
 
