@@ -1,5 +1,9 @@
 ﻿using Microsoft.Data.Sqlite;
 using MonsterCostumeAdo.Data;
+using MonsterCostumeAdo.Services;
+using MonsterCostumeAdo.Models;
+
+
 
 namespace MonsterCostumeAdo;
 
@@ -10,17 +14,10 @@ internal static class Program
 
     private static void Main()
     {
-        using (var context = new MonsterCostumeContext())
-        {
-            context.Database.EnsureCreated(); // EF will make sure DB exists
-            Console.WriteLine("✅ Database verified or created via EF Core!");
-        }
-
-        // Keep original behavior
-        EnsureDatabase();
-        SeedDatabaseIfEmpty();
-        RunMenu();
+        DatabaseInitializer.Initialize(); // EF Core handles DB + seeding now
+        RunMenu(); // Keep your old menu working
     }
+
 
     private static void RunMenu()
     {
@@ -39,13 +36,13 @@ internal static class Program
             switch (choice)
             {
                 case "1":
-                    ShowCostumes();
+                    DisplayService.ShowCostumes();
                     break;
                 case "2":
-                    ShowSales();
+                    DisplayService.ShowSales();
                     break;
                 case "3":
-                    RegisterSale();
+                    RegisterSale(); // still ADO.NET for now (will be replaced in Part 4)
                     break;
                 case "0":
                     Console.WriteLine("Hej då och lycka till på Allhelgona!");
@@ -53,9 +50,9 @@ internal static class Program
                 default:
                     Console.WriteLine("Ogiltigt val, försök igen.");
                     break;
+
             }
         }
-    }
 
     private static void EnsureDatabase()
     {
